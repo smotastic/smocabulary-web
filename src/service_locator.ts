@@ -12,6 +12,11 @@ import { CourseListDatasource } from "./course-list/data/datasources/course-list
 import CourseListFirebaseDs from "./course-list/data/datasources/course-list-firebase.datasource";
 import CourseListMockDs from "./course-list/data/datasources/course-list-mock.datasource";
 import CourseCreateUsecaseImpl, { CourseCreateUsecase } from "./course-create/domain/course-create.usecase";
+import { CourseCreateDatasource } from "./course-create/data/datasources/course-create.datasource";
+import { CourseCreatePort } from "./course-create/domain/course-create.port";
+import CourseCreateFirebaseDatasource from "./course-create/data/datasources/course-create-firebase.datasource";
+import CourseCreateMockDatasource from "./course-create/data/datasources/course-create-mock.datasource";
+import CourseCreateAdapter from "./course-create/data/course-create.apapter";
 
 export const TOKENS = {
     authDs: token<AuthDatasource>('authDatasource'),
@@ -22,6 +27,8 @@ export const TOKENS = {
     courseListPort: token<CourseListPort>('courseListPort'),
     courseListUsecase: token<CourseListUsecase>('courseListUsecase'),
 
+    courseCreateDs: token<CourseCreateDatasource>('courseCreateDs'),
+    courseCreatePort: token<CourseCreatePort>('courseCreatePort'),
     courseCreateUsecase: token<CourseCreateUsecase>('courseCreateUsecase'),
 };
 
@@ -57,6 +64,13 @@ _container.bind(TOKENS.courseListUsecase).toInstance(CourseListUsecaseImpl).inSi
 injected(CourseListUsecaseImpl, TOKENS.courseListPort.optional);
 
 // ####### COURSECREATE FEATURE
+_container.bind(TOKENS.courseCreateDs).toInstance(CourseCreateFirebaseDatasource).inSingletonScope();
+_container.when(TAGS.dev).bind(TOKENS.courseCreateDs).toInstance(CourseCreateMockDatasource).inSingletonScope();
+
+_container.bind(TOKENS.courseCreatePort).toInstance(CourseCreateAdapter).inSingletonScope();
+injected(CourseCreateAdapter, TOKENS.courseCreateDs.optional);
+
 _container.bind(TOKENS.courseCreateUsecase).toInstance(CourseCreateUsecaseImpl).inSingletonScope();
+injected(CourseCreateUsecaseImpl, TOKENS.courseCreatePort.optional);
 
 export const container = _container;

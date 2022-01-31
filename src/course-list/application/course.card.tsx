@@ -1,13 +1,22 @@
-import { BoxProps, Box, Button, Card, CardActions, CardContent, CardMedia, Typography, CardActionArea } from "@mui/material";
-import router from "next/router";
-import { pagePath } from "../../../utils/page.path";
+import { BoxProps, Box, Card, CardContent, Typography, CardActionArea } from "@mui/material";
 import { CourseEntry } from "../domain/course-list-entry.entity";
-import CourseListItem from "./course-list.item";
 
 type CourseCardProps = {
     course: CourseEntry
 }
-
+function CourseListItem(props: BoxProps) {
+    const { sx, ...other } = props;
+    return (
+        <Box
+            sx={{
+                p: 1,
+                m: 1,
+                ...sx,
+            }}
+            {...other}
+        />
+    );
+}
 export default function CourseCard({ course }: CourseCardProps) {
     return <CourseListItem>
         <CardActionArea>
