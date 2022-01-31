@@ -1,4 +1,4 @@
-import { AuthPort } from "../../domain/port/authPort";
+import { AuthPort } from "../../domain/ports/authPort";
 import { AuthDatasource } from "../datasources/authDatasource";
 
 export default class AuthAdapter implements AuthPort {

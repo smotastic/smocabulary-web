@@ -1,74 +1,23 @@
-import { Box, BoxProps, Button, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material'
-import HouseplantList from '../components/houseplants/HouseplantList';
-import { useQuery } from "react-query";
-import { useRouter } from 'next/router';
-import { pagePath } from '../utils/page.path';
+import { GetServerSideProps } from 'next';
+import CatalogList from '../src/cataloglist/application/list';
+import { CatalogEntry } from '../src/cataloglist/domain/entities/catalog_entry';
+import { CatalogListUsecaseImpl } from '../src/cataloglist/domain/usecase/catalog_list_usecase';
+import { container, TOKENS } from '../src/service_locator';
 
-
-function Item(props: BoxProps) {
-  const { sx, ...other } = props;
-  return (
-    <Box
-      sx={{
-        p: 1,
-        m: 1,
-        ...sx,
-      }}
-      {...other}
-    />
-  );
+type HomeProps = {
+  catalogs: CatalogEntry[]
 }
 
-export default function Home() {
+export default function Home({ catalogs }: HomeProps) {
+  return <CatalogList catalogs={catalogs} />
+}
 
-  const router = useRouter();
-
-  return (
-    <>
-      <Box sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, justifyContent: 'flex-start' }}>
-        <Item>
-          <Card sx={{ width: 300, height: 300 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="/houseplant.jpeg"
-              alt="houseplants"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Houseplants
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Update, view and create all Houseplants
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" onClick={() => router.push(`${pagePath.houseplants}`)}>Start</Button>
-            </CardActions>
-          </Card>
-        </Item>
-        <Item>
-          <Card sx={{ width: 300, height: 300 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="/seasonal.jpeg"
-              alt="seasonal plants"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Seasonal Plants
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Update, view and create all Seasonal Plants
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" onClick={() => router.push(`${pagePath.seasonal}`)}>Start</Button>
-            </CardActions>
-          </Card>
-        </Item>
-      </Box>
-    </>
-  )
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const usecase = container.get(TOKENS.catalogListUsecase);
+  const catalogs = await usecase.execute({});
+  return {
+    props: {
+      catalogs
+    }
+  }
 }
