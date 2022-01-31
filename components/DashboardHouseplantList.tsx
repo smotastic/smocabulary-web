@@ -4,8 +4,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from "next/router";
 import ImageListItem from '@mui/material/ImageListItem';
 import { pagePath } from "../utils/page.path";
+import DashboardCourseCreateBridge from "../src/course-create/application/dashboard-course-create.bridge";
 
-export default function DashboardHouseplantList() {
+export default function DashboardCoursesList() {
     const router = useRouter();
 
     return (
@@ -23,19 +24,17 @@ export default function DashboardHouseplantList() {
                 />
                 <ImageListItemBar
                     position="bottom"
-                    title={'Houseplants'}
+                    title={'Courses'}
 
 
                 />
             </ImageListItem>
-            <ListItemButton onClick={() => router.push(`${pagePath.houseplants}`)}>
+            <ListItemButton onClick={() => router.push(`${pagePath.courses}`)}>
                 <ListItemText primary={'List'} />
                 <ListIcon />
             </ListItemButton>
-            <ListItemButton onClick={() => router.push(`${pagePath.houseplants}/create`)}>
-                <ListItemText primary={'Create'} />
-                <AddIcon />
-            </ListItemButton>
+            <DashboardCourseCreateBridge />
+
         </List>
     );
 }

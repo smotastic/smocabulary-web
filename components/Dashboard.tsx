@@ -15,9 +15,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import DashboardHouseplantList from './DashboardHouseplantList';
+import DashboardCoursesList from './DashboardHouseplantList';
 import DashboardOptions from './DashboardOptions';
-import DashboardSeasonalList from './DashboardSeasonalList';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 const drawerWidth = 240;
@@ -45,9 +44,7 @@ export default function ResponsiveDrawer({ children }: DashboardProps) {
 
     const drawer = (
         <>
-            <DashboardHouseplantList />
-            <Divider />
-            <DashboardSeasonalList />
+            <DashboardCoursesList />
             <Divider />
             <DashboardOptions />
         </>
@@ -76,7 +73,7 @@ export default function ResponsiveDrawer({ children }: DashboardProps) {
                     <Image src='/logo.png' width={32} height={48} onClick={() => { router.push('/') }} className='pointer' />
                     <Typography variant="h6" noWrap component="div">
                         <Typography sx={{ cursor: 'pointer', ml: '10px' }} onClick={() => { router.push('/') }} variant="h6" noWrap component="div" lineHeight={2.6}>
-                            {'Planty App'}
+                            {'Smocabulary'}
                         </Typography>
                     </Typography>
                 </Toolbar>

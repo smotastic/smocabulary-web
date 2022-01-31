@@ -1,10 +1,8 @@
 export interface PagePath {
-    houseplants: string,
-    seasonal: string
+    courses: string,
 }
 
 
 export const pagePath: PagePath = {
-    houseplants: '/houseplants',
-    seasonal: '/seasonal'
+    courses: '/courses'
 }

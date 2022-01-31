@@ -1,17 +1,22 @@
 import { Box } from "@mui/material";
+import { useContext, useEffect } from "react";
 
 import { CourseEntry } from "../domain/course-list-entry.entity";
+import { CourseListContext } from "./context/course-list.context";
+import CourseListView from "./course-list.view";
 import CourseCard from "./course.card";
 
 type CourseListProps = {
     courses: CourseEntry[]
 }
 
-export default function CourseList({ courses }: CourseListProps) {
+export default function CourseListContainer({ courses }: CourseListProps) {
+    const { setCourses } = useContext(CourseListContext);
+    useEffect(() => {
+        setCourses(courses);
+    }, [])
     return <>
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-start' }}>
-            {courses.map(course => <CourseCard key={course.name} course={course} />)}
-        </Box>
+        <CourseListView />
     </>
 }
 

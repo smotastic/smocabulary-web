@@ -15,7 +15,7 @@ export class CourseListUsecaseImpl implements CourseListUsecase {
         this._port = port;
     }
 
-    async execute(params: CourseListParams): Promise<CourseEntry[]> {
-        return [{ name: 'Course 1', description: 'Cool beginner courseue' }, { name: 'Course 2' }, { name: 'Course 3' }];
+    execute(params: CourseListParams): Promise<CourseEntry[]> {
+        return this._port.list();
     }
 }
