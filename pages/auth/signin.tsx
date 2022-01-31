@@ -1,6 +1,6 @@
-import AuthView from "../../src/auth/application/auth_view";
+import AuthContainer from "../../src/auth/application/auth.container";
 
 
 export default function SignInSide() {
-    return <AuthView />
+    return <AuthContainer />
 }

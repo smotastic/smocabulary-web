@@ -1,10 +1,10 @@
-import AuthAdapter from "./auth/data/adapter/authAdapter";
-import FirebaseAuthDatasource from './auth/data/datasources/firebaseAuthDs';
-import { AuthPort } from "./auth/domain/ports/authPort";
+import AuthAdapter from "./auth/data/auth.adapter";
+import FirebaseAuthDatasource from './auth/data/datasources/auth-firebase.datasource';
+import { AuthPort } from "./auth/domain/authPort";
 import { Container, injected, tag, tagged, token } from 'brandi';
-import { AuthDatasource } from "./auth/data/datasources/authDatasource";
-import MockAuthDatasource from "./auth/data/datasources/mockAuthDs";
-import { AuthUsecase, AuthUsecaseImpl } from "./auth/domain/usecase/auth_usecase";
+import { AuthDatasource } from "./auth/data/datasources/auth.datasource";
+import MockAuthDatasource from "./auth/data/datasources/auth-mock.datasource";
+import { AuthUsecase, AuthUsecaseImpl } from "./auth/domain/auth.usecase";
 import { CatalogListPort } from "./cataloglist/domain/ports/catalog_list_port";
 import { CatalogListUsecase, CatalogListUsecaseImpl } from "./cataloglist/domain/usecase/catalog_list_usecase";
 import CatalogListAdapter from "./cataloglist/data/adapter/catalog_list_adapter";

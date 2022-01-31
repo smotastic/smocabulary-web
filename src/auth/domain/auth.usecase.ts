@@ -1,6 +1,6 @@
-import { Params, Usecase } from "../../../core/domain/usecase";
-import { AuthEntity } from "../entities/auth_entity";
-import { AuthPort } from "../ports/authPort";
+import { Params, Usecase } from "../../core/domain/usecase";
+import { AuthEntity } from "./auth.entity";
+import { AuthPort } from "./authPort";
 
 export interface AuthParams extends Params {
     username: string,

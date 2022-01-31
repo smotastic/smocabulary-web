@@ -1,4 +1,4 @@
-import { AuthEntity } from "../entities/auth_entity";
+import { AuthEntity } from "./auth.entity";
 
 // export interface AuthDetailsEntity {
 //     username: string,
