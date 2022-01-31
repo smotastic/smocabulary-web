@@ -5,19 +5,19 @@ import { CourseListUsecaseImpl } from '../src/course-list/domain/course-list.use
 import { container, TOKENS } from '../src/service_locator';
 
 type HomeProps = {
-  catalogs: CourseEntry[]
+  courses: CourseEntry[]
 }
 
-export default function Home({ catalogs }: HomeProps) {
-  return <CourseList catalogs={catalogs} />
+export default function Home({ courses }: HomeProps) {
+  return <CourseList courses={courses} />
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const usecase = container.get(TOKENS.catalogListUsecase);
-  const catalogs = await usecase.execute({});
+  const usecase = container.get(TOKENS.courseListUsecase);
+  const courses = await usecase.execute({});
   return {
     props: {
-      catalogs
+      courses
     }
   }
 }

@@ -19,19 +19,19 @@ function Item(props: BoxProps) {
 
 
 type CourseCardProps = {
-    catalog: CourseEntry
+    course: CourseEntry
 }
 
-export default function CourseCard({ catalog }: CourseCardProps) {
+export default function CourseCard({ course }: CourseCardProps) {
     return <Item>
         <Card sx={{ width: 200, height: 100 }}>
         
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {catalog.name}
+                    {course.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {catalog.description}
+                    {course.description}
                 </Typography>
             </CardContent>
         </Card>

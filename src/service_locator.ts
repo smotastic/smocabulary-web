@@ -14,8 +14,8 @@ export const TOKENS = {
     authPort: token<AuthPort>('authPort'),
     authUsecase: token<AuthUsecase>('authUsecase'),
 
-    catalogListPort: token<CourseListPort>('catalogListPort'),
-    catalogListUsecase: token<CourseListUsecase>('catalogListUsecase')
+    courseListPort: token<CourseListPort>('courseListPort'),
+    courseListUsecase: token<CourseListUsecase>('courseListUsecase')
 };
 
 export const TAGS = {
@@ -38,10 +38,10 @@ injected(AuthAdapter, TOKENS.authDs.optional);
 _container.bind(TOKENS.authUsecase).toInstance(AuthUsecaseImpl).inSingletonScope();
 injected(AuthUsecaseImpl, TOKENS.authPort.optional);
 
-// ####### CATALOGLIST FEATURE
-_container.bind(TOKENS.catalogListPort).toInstance(CourseListAdapter).inSingletonScope();
+// ####### COURSELIST FEATURE
+_container.bind(TOKENS.courseListPort).toInstance(CourseListAdapter).inSingletonScope();
 
-_container.bind(TOKENS.catalogListUsecase).toInstance(CourseListUsecaseImpl).inSingletonScope();
-injected(CourseListUsecaseImpl, TOKENS.catalogListPort.optional);
+_container.bind(TOKENS.courseListUsecase).toInstance(CourseListUsecaseImpl).inSingletonScope();
+injected(CourseListUsecaseImpl, TOKENS.courseListPort.optional);
 
 export const container = _container;
