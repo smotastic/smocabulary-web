@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import DashboardCoursesList from './DashboardHouseplantList';
+import DashboardCoursesList from './DashboardCoursesList';
 import DashboardOptions from './DashboardOptions';
 import { useRouter } from 'next/router';
 import Image from 'next/image';

@@ -1,6 +1,6 @@
 import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
-import { SnackbarContext, SnackbarData } from "../context/snackbar";
+import { SnackbarContext, SnackbarData } from "../src/core/application/snackbar";
 
 
 type SnackbarGlobalProps = { children: React.ReactNode }
