@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
-import { CatalogEntry } from "../domain/entities/catalog_entry";
-import CatalogCard from "./catalog_card";
+import { CatalogEntry } from "../domain/course-list-entry.entity";
+import CatalogCard from "./course.card";
 
 type CatalogListProps = {
     catalogs: CatalogEntry[]

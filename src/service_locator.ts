@@ -5,9 +5,9 @@ import { Container, injected, tag, tagged, token } from 'brandi';
 import { AuthDatasource } from "./auth/data/datasources/auth.datasource";
 import MockAuthDatasource from "./auth/data/datasources/auth-mock.datasource";
 import { AuthUsecase, AuthUsecaseImpl } from "./auth/domain/auth.usecase";
-import { CatalogListPort } from "./cataloglist/domain/ports/catalog_list_port";
-import { CatalogListUsecase, CatalogListUsecaseImpl } from "./cataloglist/domain/usecase/catalog_list_usecase";
-import CatalogListAdapter from "./cataloglist/data/adapter/catalog_list_adapter";
+import { CatalogListPort } from "./course-list/domain/course-list.port";
+import { CatalogListUsecase, CatalogListUsecaseImpl } from "./course-list/domain/course-list.usecase";
+import CatalogListAdapter from "./course-list/data/course-list.adapter";
 
 export const TOKENS = {
     authDs: token<AuthDatasource>('authDatasource'),

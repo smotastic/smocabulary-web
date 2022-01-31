@@ -1,7 +1,7 @@
 
-import { Params, Usecase } from "../../../core/domain/usecase";
-import { CatalogEntry } from "../entities/catalog_entry";
-import { CatalogListPort } from "../ports/catalog_list_port";
+import { Params, Usecase } from "../../core/domain/usecase";
+import { CatalogEntry } from "./course-list-entry.entity";
+import { CatalogListPort } from "./course-list.port";
 
 export interface CatalogListParams extends Params { }
 

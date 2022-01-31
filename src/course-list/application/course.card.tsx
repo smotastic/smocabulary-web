@@ -1,7 +1,7 @@
 import { BoxProps, Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import router from "next/router";
 import { pagePath } from "../../../utils/page.path";
-import { CatalogEntry } from "../domain/entities/catalog_entry";
+import { CatalogEntry } from "../domain/course-list-entry.entity";
 
 function Item(props: BoxProps) {
     const { sx, ...other } = props;
