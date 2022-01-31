@@ -4,7 +4,7 @@ import { AuthPort } from "./auth/domain/port/authPort";
 import { Container, injected, tag, tagged, token } from 'brandi';
 import { AuthDatasource } from "./auth/data/datasources/authDatasource";
 import MockAuthDatasource from "./auth/data/datasources/mockAuthDs";
-import { AuthUsecase, AuthUsecaseImpl } from "./auth/application/auth_usecase";
+import { AuthUsecase, AuthUsecaseImpl } from "./auth/domain/usecase/auth_usecase";
 
 export const TOKENS = {
     authDs: token<AuthDatasource>('authDatasource'),
