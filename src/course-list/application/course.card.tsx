@@ -1,7 +1,7 @@
 import { BoxProps, Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import router from "next/router";
 import { pagePath } from "../../../utils/page.path";
-import { CatalogEntry } from "../domain/course-list-entry.entity";
+import { CourseEntry } from "../domain/course-list-entry.entity";
 
 function Item(props: BoxProps) {
     const { sx, ...other } = props;
@@ -18,11 +18,11 @@ function Item(props: BoxProps) {
 }
 
 
-type CatalogCardProps = {
-    catalog: CatalogEntry
+type CourseCardProps = {
+    catalog: CourseEntry
 }
 
-export default function CatalogCard({ catalog }: CatalogCardProps) {
+export default function CourseCard({ catalog }: CourseCardProps) {
     return <Item>
         <Card sx={{ width: 200, height: 100 }}>
         

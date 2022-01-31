@@ -1,21 +1,21 @@
 
 import { Params, Usecase } from "../../core/domain/usecase";
-import { CatalogEntry } from "./course-list-entry.entity";
-import { CatalogListPort } from "./course-list.port";
+import { CourseEntry } from "./course-list-entry.entity";
+import { CourseListPort } from "./course-list.port";
 
-export interface CatalogListParams extends Params { }
+export interface CourseListParams extends Params { }
 
-export interface CatalogListUsecase extends Usecase<CatalogEntry[], CatalogListParams> { }
+export interface CourseListUsecase extends Usecase<CourseEntry[], CourseListParams> { }
 
-export class CatalogListUsecaseImpl implements CatalogListUsecase {
+export class CourseListUsecaseImpl implements CourseListUsecase {
 
-    _port: CatalogListPort;
+    _port: CourseListPort;
 
-    constructor(port: CatalogListPort) {
+    constructor(port: CourseListPort) {
         this._port = port;
     }
 
-    async execute(params: CatalogListParams): Promise<CatalogEntry[]> {
-        return [{ name: 'Catalog 1', description: 'Cool beginner catalogue' }, { name: 'Catalog 2' }, { name: 'Catalog 3' }];
+    async execute(params: CourseListParams): Promise<CourseEntry[]> {
+        return [{ name: 'Course 1', description: 'Cool beginner catalogue' }, { name: 'Course 2' }, { name: 'Course 3' }];
     }
 }

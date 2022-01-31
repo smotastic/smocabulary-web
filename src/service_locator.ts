@@ -5,17 +5,17 @@ import { Container, injected, tag, tagged, token } from 'brandi';
 import { AuthDatasource } from "./auth/data/datasources/auth.datasource";
 import MockAuthDatasource from "./auth/data/datasources/auth-mock.datasource";
 import { AuthUsecase, AuthUsecaseImpl } from "./auth/domain/auth.usecase";
-import { CatalogListPort } from "./course-list/domain/course-list.port";
-import { CatalogListUsecase, CatalogListUsecaseImpl } from "./course-list/domain/course-list.usecase";
-import CatalogListAdapter from "./course-list/data/course-list.adapter";
+import { CourseListPort } from "./course-list/domain/course-list.port";
+import { CourseListUsecase, CourseListUsecaseImpl } from "./course-list/domain/course-list.usecase";
+import CourseListAdapter from "./course-list/data/course-list.adapter";
 
 export const TOKENS = {
     authDs: token<AuthDatasource>('authDatasource'),
     authPort: token<AuthPort>('authPort'),
     authUsecase: token<AuthUsecase>('authUsecase'),
 
-    catalogListPort: token<CatalogListPort>('catalogListPort'),
-    catalogListUsecase: token<CatalogListUsecase>('catalogListUsecase')
+    catalogListPort: token<CourseListPort>('catalogListPort'),
+    catalogListUsecase: token<CourseListUsecase>('catalogListUsecase')
 };
 
 export const TAGS = {
@@ -39,9 +39,9 @@ _container.bind(TOKENS.authUsecase).toInstance(AuthUsecaseImpl).inSingletonScope
 injected(AuthUsecaseImpl, TOKENS.authPort.optional);
 
 // ####### CATALOGLIST FEATURE
-_container.bind(TOKENS.catalogListPort).toInstance(CatalogListAdapter).inSingletonScope();
+_container.bind(TOKENS.catalogListPort).toInstance(CourseListAdapter).inSingletonScope();
 
-_container.bind(TOKENS.catalogListUsecase).toInstance(CatalogListUsecaseImpl).inSingletonScope();
-injected(CatalogListUsecaseImpl, TOKENS.catalogListPort.optional);
+_container.bind(TOKENS.catalogListUsecase).toInstance(CourseListUsecaseImpl).inSingletonScope();
+injected(CourseListUsecaseImpl, TOKENS.catalogListPort.optional);
 
 export const container = _container;

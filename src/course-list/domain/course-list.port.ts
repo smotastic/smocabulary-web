@@ -1,5 +1,5 @@
-import { CatalogEntry } from "./course-list-entry.entity";
+import { CourseEntry } from "./course-list-entry.entity";
 
-export interface CatalogListPort {
-    list(): Promise<CatalogEntry[]>;
+export interface CourseListPort {
+    list(): Promise<CourseEntry[]>;
 }
