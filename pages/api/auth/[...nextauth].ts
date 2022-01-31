@@ -12,10 +12,12 @@ export default NextAuth({
                 token: { label: "Token", type: "text" }
             },
             authorize: async (credentials, req) => {
-                
+
                 try {
-                    const port = container.get(TOKENS.authPort);
-                    const authDetails = await port.signin(credentials!.email, credentials!.password);
+                    const usecase = container.get(TOKENS.authUsecase);
+                    const username: string = credentials.email;
+                    const password: string = credentials.password;
+                    const authDetails = await usecase.execute({ username, password });
                     return { email: authDetails.username, token: authDetails.token };
                 } catch (error) {
                     console.log(error);

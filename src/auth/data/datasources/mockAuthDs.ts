@@ -1,4 +1,3 @@
-import { AuthDetailsEntity } from "../../domain/port/authPort";
 import { AuthDatasource } from "./authDatasource";
 
 export default class MockAuthDatasource implements AuthDatasource {
