@@ -1,7 +1,7 @@
 import AuthAdapter from "./auth/data/auth.adapter";
 import FirebaseAuthDatasource from './auth/data/datasources/auth-firebase.datasource';
 import { AuthPort } from "./auth/domain/authPort";
-import { Container, injected, tag, tagged, token } from 'brandi';
+import { Container, injected, tag, tagged, token, TokenType, TokenValue } from 'brandi';
 import { AuthDatasource } from "./auth/data/datasources/auth.datasource";
 import MockAuthDatasource from "./auth/data/datasources/auth-mock.datasource";
 import { AuthUsecase, AuthUsecaseImpl } from "./auth/domain/auth.usecase";
@@ -35,42 +35,52 @@ export const TOKENS = {
 export const TAGS = {
     dev: tag('dev'),
 };
+export class ServiceLocator {
+    private _container: Container;
 
-if (process.env.AUTH_REPOSITORY === 'mock') {
-    tagged(AuthAdapter, TAGS.dev);
-    tagged(CourseListAdapter, TAGS.dev);
+    constructor() {
+        if (process.env.NEXT_PUBLIC_AUTH_REPOSITORY === 'mock') {
+            tagged(CourseCreateAdapter, TAGS.dev);
+            tagged(AuthAdapter, TAGS.dev);
+            tagged(CourseListAdapter, TAGS.dev);
+        }
+        this._container = new Container();
+
+
+        this._container.bind(TOKENS.courseCreateUsecase).toInstance(CourseCreateUsecaseImpl).inSingletonScope();
+        injected(CourseCreateUsecaseImpl, TOKENS.courseCreatePort.optional);
+        // ####### AUTHENTICATION FEATURE
+        this._container.bind(TOKENS.authDs).toInstance(FirebaseAuthDatasource).inSingletonScope();
+        this._container.when(TAGS.dev).bind(TOKENS.authDs).toInstance(MockAuthDatasource).inSingletonScope();
+
+        this._container.bind(TOKENS.authPort).toInstance(AuthAdapter).inSingletonScope();
+        injected(AuthAdapter, TOKENS.authDs.optional);
+
+        this._container.bind(TOKENS.authUsecase).toInstance(AuthUsecaseImpl).inSingletonScope();
+        injected(AuthUsecaseImpl, TOKENS.authPort.optional);
+
+        // ####### COURSELIST FEATURE
+        this._container.bind(TOKENS.courseListDs).toInstance(CourseListFirebaseDs).inSingletonScope();
+        this._container.when(TAGS.dev).bind(TOKENS.courseListDs).toInstance(CourseListMockDs).inSingletonScope();
+
+        this._container.bind(TOKENS.courseListPort).toInstance(CourseListAdapter).inSingletonScope();
+        injected(CourseListAdapter, TOKENS.courseListDs.optional);
+
+        this._container.bind(TOKENS.courseListUsecase).toInstance(CourseListUsecaseImpl).inSingletonScope();
+        injected(CourseListUsecaseImpl, TOKENS.courseListPort.optional);
+
+        // ####### COURSECREATE FEATURE
+        this._container.bind(TOKENS.courseCreateDs).toInstance(CourseCreateFirebaseDatasource).inSingletonScope();
+        this._container.when(TAGS.dev).bind(TOKENS.courseCreateDs).toInstance(CourseCreateMockDatasource).inSingletonScope();
+
+        this._container.bind(TOKENS.courseCreatePort).toInstance(CourseCreateAdapter).inSingletonScope();
+        injected(CourseCreateAdapter, TOKENS.courseCreateDs.optional);
+    }
+
+    public get<T extends TokenValue>(token: T): TokenType<T> {
+        return this._container.get(token);
+    }
+
 }
 
-export const _container = new Container();
-
-// ####### AUTHENTICATION FEATURE
-_container.bind(TOKENS.authDs).toInstance(FirebaseAuthDatasource).inSingletonScope();
-_container.when(TAGS.dev).bind(TOKENS.authDs).toInstance(MockAuthDatasource).inSingletonScope();
-
-_container.bind(TOKENS.authPort).toInstance(AuthAdapter).inSingletonScope();
-injected(AuthAdapter, TOKENS.authDs.optional);
-
-_container.bind(TOKENS.authUsecase).toInstance(AuthUsecaseImpl).inSingletonScope();
-injected(AuthUsecaseImpl, TOKENS.authPort.optional);
-
-// ####### COURSELIST FEATURE
-_container.bind(TOKENS.courseListDs).toInstance(CourseListFirebaseDs).inSingletonScope();
-_container.when(TAGS.dev).bind(TOKENS.courseListDs).toInstance(CourseListMockDs).inSingletonScope();
-
-_container.bind(TOKENS.courseListPort).toInstance(CourseListAdapter).inSingletonScope();
-injected(CourseListAdapter, TOKENS.courseListDs.optional);
-
-_container.bind(TOKENS.courseListUsecase).toInstance(CourseListUsecaseImpl).inSingletonScope();
-injected(CourseListUsecaseImpl, TOKENS.courseListPort.optional);
-
-// ####### COURSECREATE FEATURE
-_container.bind(TOKENS.courseCreateDs).toInstance(CourseCreateFirebaseDatasource).inSingletonScope();
-_container.when(TAGS.dev).bind(TOKENS.courseCreateDs).toInstance(CourseCreateMockDatasource).inSingletonScope();
-
-_container.bind(TOKENS.courseCreatePort).toInstance(CourseCreateAdapter).inSingletonScope();
-injected(CourseCreateAdapter, TOKENS.courseCreateDs.optional);
-
-_container.bind(TOKENS.courseCreateUsecase).toInstance(CourseCreateUsecaseImpl).inSingletonScope();
-injected(CourseCreateUsecaseImpl, TOKENS.courseCreatePort.optional);
-
-export const container = _container;
+export const container = new ServiceLocator();
