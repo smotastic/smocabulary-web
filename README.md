@@ -1,11 +1,15 @@
 ## Introduction
-Simple CRUD Application to manage and view your house- and seasonal plants.
+
+Simple CRUD Application to manage vocabulary cards, categorized in courses, showcasing clean architecture in react.
 
 Build with:
 * [Next.js](https://nextjs.org/)
 * [Next Auth](https://next-auth.js.org/)
 * [MUI](https://mui.com/)
 * [Firebase](https://firebase.google.com/)
+* [ReactQuery](https://react-query.tanstack.com/)
+* [Brandi](https://brandi.js.org/)
+
 
 ## Data Injection
 Based on the environment **DATA_REPOSITORY** a predefined in memory mocking database will be used, or a firebase backend.
