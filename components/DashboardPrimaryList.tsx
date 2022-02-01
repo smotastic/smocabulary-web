@@ -4,9 +4,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from "next/router";
 import ImageListItem from '@mui/material/ImageListItem';
 import { pagePath } from "../utils/page.path";
-import DashboardCourseCreateBridge from "../src/course-create/application/dashboard-course-create.bridge";
+import CourseCreateBridge from "../src/layout/application/course-create.bridge";
 
-export default function DashboardCoursesList() {
+export default function DashboardPrimaryList() {
     const router = useRouter();
 
     return (
@@ -33,7 +33,7 @@ export default function DashboardCoursesList() {
                 <ListItemText primary={'List'} />
                 <ListIcon />
             </ListItemButton>
-            <DashboardCourseCreateBridge />
+            <CourseCreateBridge />
 
         </List>
     );
