@@ -42,7 +42,7 @@ export default class CourseMockHelper implements CourseHelper {
 
     public add(model: CourseDetailModel): CourseDetailModel {
         const newModel = { ...model, id: `${this._db.length + 1}` };
-        this._db.push({ ...model, id: `${this._db.length + 1}` });
+        this._db.push(newModel);
         return newModel;
     }
 }
