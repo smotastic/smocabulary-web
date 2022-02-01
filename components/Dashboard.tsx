@@ -70,7 +70,7 @@ export default function ResponsiveDrawer({ children }: DashboardProps) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Image src='/logo.png' width={32} height={48} onClick={() => { router.push('/') }} className='pointer' />
+                    <Image src='/logo.png' width={24} height={40} onClick={() => { router.push('/') }} className='pointer' />
                     <Typography variant="h6" noWrap component="div">
                         <Typography sx={{ cursor: 'pointer', ml: '10px' }} onClick={() => { router.push('/') }} variant="h6" noWrap component="div" lineHeight={2.6}>
                             {'Smocabulary'}

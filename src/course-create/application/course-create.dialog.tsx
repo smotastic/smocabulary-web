@@ -1,4 +1,4 @@
-import { TextField, Button, Grid, Dialog, DialogTitle, DialogContent, DialogActions, Box } from "@mui/material";
+import { TextField, Button, Grid, Dialog, DialogTitle, DialogContent, DialogActions, Box, useMediaQuery, useTheme } from "@mui/material";
 import React, { useContext } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { SnackbarContext } from "../../core/application/snackbar";
@@ -18,6 +18,9 @@ export default function CourseCreateDialog({ open, setOpen }: CouseCreateDialogP
     const useBridge = useCourseListBridge();
     const snackbar = useContext(SnackbarContext);
     const usecase = container.get(TOKENS.courseCreateUsecase);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -33,24 +36,23 @@ export default function CourseCreateDialog({ open, setOpen }: CouseCreateDialogP
             snackbar.openSnackbar({ msg: 'Successfully created', severity: 'success' })
         },
     })
-    // 
+
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const name = form.get('name') as string;
         const description = form.get('description') as string;
 
-        // const result = await usecase.execute({ entity: { name, description } });
         mutation.mutate({ entity: { name, description } });
     }
 
-
-    return <Dialog open={open} onClose={handleClose}>
+    return <Dialog open={open} onClose={handleClose} fullScreen={fullScreen} maxWidth='md' fullWidth={true}>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <DialogTitle>Create Course</DialogTitle>
             <DialogContent>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={6}>
                         <TextField
                             margin="normal"
                             required
@@ -58,6 +60,20 @@ export default function CourseCreateDialog({ open, setOpen }: CouseCreateDialogP
                             id="name"
                             label="Name"
                             name="name"
+                            autoFocus
+                            defaultValue={''}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            multiline={true}
+                            rows={5}
+                            id="description"
+                            label="Description"
+                            name="description"
                             autoFocus
                             defaultValue={''}
                         />

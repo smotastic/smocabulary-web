@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { green } from "@mui/material/colors";
+import { blueGrey, green, pink } from "@mui/material/colors";
 import React from "react";
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
@@ -22,7 +22,7 @@ export default function Layout({ children }: LayoutProps) {
             createTheme({
                 palette: {
                     mode,
-                    primary: green
+                    primary: blueGrey
                 },
             }),
         [mode],
