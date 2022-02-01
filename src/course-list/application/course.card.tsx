@@ -1,5 +1,6 @@
 import { BoxProps, Box, Card, CardContent, Typography, CardActionArea } from "@mui/material";
 import { CourseEntry } from "../domain/course-list-entry.entity";
+import useCourseDetailBridge from "./course-detail.bridge";
 
 type CourseCardProps = {
     course: CourseEntry
@@ -18,8 +19,9 @@ function CourseListItem(props: BoxProps) {
     );
 }
 export default function CourseCard({ course }: CourseCardProps) {
+    const detailBridge = useCourseDetailBridge();
     return <CourseListItem>
-        <CardActionArea>
+        <CardActionArea onClick={(event) => detailBridge.connect(course.id)}>
             <Card sx={{ width: 200, height: 100 }}>
 
                 <CardContent>

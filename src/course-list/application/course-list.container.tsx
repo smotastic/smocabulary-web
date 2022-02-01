@@ -12,7 +12,7 @@ import CourseListView from "./course-list.view";
 export default function CourseListContainer() {
 
     const usecase = container.get(TOKENS.courseListUsecase);
-    const { isLoading, isSuccess, isError, error, data, status, isRefetching } = useQuery('course-list', (params: CourseListParams) => usecase.execute(params));
+    const { isLoading, isSuccess, isError, error, data, status, isRefetching } = useQuery('course-list', () => usecase.execute({}));
     if (isLoading) {
         return <CourseListLoading />
     }

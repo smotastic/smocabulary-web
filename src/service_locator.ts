@@ -17,6 +17,18 @@ import { CourseCreatePort } from "./course-create/domain/course-create.port";
 import CourseCreateFirebaseDatasource from "./course-create/data/datasources/course-create-firebase.datasource";
 import CourseCreateMockDatasource from "./course-create/data/datasources/course-create-mock.datasource";
 import CourseCreateAdapter from "./course-create/data/course-create.apapter";
+import CourseDetailUsecaseImpl, { CourseDetailUsecase } from "./course-detail/domain/course-detail.usecase";
+import { CourseDetailPort } from "./course-detail/domain/course-detail.port";
+import CourseDetailAdapter from "./course-detail/data/course-detail.adapter";
+import { CourseDetailDatasource } from "./course-detail/data/datasources/course-detail.datasource";
+import CourseDetailFirebaseDatasource from "./course-detail/data/datasources/course-detail-firebase.datasource";
+import CourseDetailMockDatasource from "./course-detail/data/datasources/course-detail-mock.datasource";
+import { CardCreateDatasource } from "./card-create/data/datasources/card-create.datasource";
+import { CardCreatePort } from "./card-create/domain/card-create.port";
+import CardCreateUsecaseImpl, { CardCreateUsecase } from "./card-create/domain/card-create.usecase";
+import CardCreateFirebaseDatasource from "./card-create/data/datasources/card-create-firebase.datasource";
+import CardCreateAdapter from "./card-create/data/card-create.adapter";
+import CardCreateMockDatasource from "./card-create/data/datasources/card-create-mock.datasource";
 
 export const TOKENS = {
     authDs: token<AuthDatasource>('authDatasource'),
@@ -30,6 +42,14 @@ export const TOKENS = {
     courseCreateDs: token<CourseCreateDatasource>('courseCreateDs'),
     courseCreatePort: token<CourseCreatePort>('courseCreatePort'),
     courseCreateUsecase: token<CourseCreateUsecase>('courseCreateUsecase'),
+
+    courseDetailDs: token<CourseDetailDatasource>('courseDetailDs'),
+    courseDetailPort: token<CourseDetailPort>('courseDetailPort'),
+    courseDetailUsecase: token<CourseDetailUsecase>('courseDetailUsecase'),
+
+    cardCreateDs: token<CardCreateDatasource>('cardCreateDs'),
+    cardCreatePort: token<CardCreatePort>('cardCreatePort'),
+    cardCreateUsecase: token<CardCreateUsecase>('cardCreateUsecase'),
 };
 
 export const TAGS = {
@@ -43,6 +63,8 @@ export class ServiceLocator {
             tagged(CourseCreateAdapter, TAGS.dev);
             tagged(AuthAdapter, TAGS.dev);
             tagged(CourseListAdapter, TAGS.dev);
+            tagged(CourseDetailAdapter, TAGS.dev);
+            tagged(CardCreateAdapter, TAGS.dev);
         }
         this._container = new Container();
 
@@ -75,6 +97,29 @@ export class ServiceLocator {
 
         this._container.bind(TOKENS.courseCreatePort).toInstance(CourseCreateAdapter).inSingletonScope();
         injected(CourseCreateAdapter, TOKENS.courseCreateDs.optional);
+
+        this._container.bind(TOKENS.courseCreateUsecase).toInstance(CourseCreateUsecaseImpl).inSingletonScope();
+        injected(CourseCreateUsecaseImpl, TOKENS.courseCreatePort.optional);
+
+        // ####### COURSEDETAIL FEATURE
+        this._container.bind(TOKENS.courseDetailDs).toInstance(CourseDetailFirebaseDatasource).inSingletonScope();
+        this._container.when(TAGS.dev).bind(TOKENS.courseDetailDs).toInstance(CourseDetailMockDatasource).inSingletonScope();
+        this._container.bind(TOKENS.courseDetailPort).toInstance(CourseDetailAdapter).inSingletonScope();
+        injected(CourseDetailAdapter, TOKENS.courseDetailDs.optional);
+
+        this._container.bind(TOKENS.courseDetailUsecase).toInstance(CourseDetailUsecaseImpl).inSingletonScope();
+        injected(CourseDetailUsecaseImpl, TOKENS.courseDetailPort.optional);
+
+        // ####### CARDCREATE FEATURE
+        this._container.bind(TOKENS.cardCreateDs).toInstance(CardCreateFirebaseDatasource).inSingletonScope();
+        this._container.when(TAGS.dev).bind(TOKENS.cardCreateDs).toInstance(CardCreateMockDatasource).inSingletonScope();
+
+        this._container.bind(TOKENS.cardCreatePort).toInstance(CardCreateAdapter).inSingletonScope();
+        injected(CardCreateAdapter, TOKENS.cardCreateDs.optional);
+
+        this._container.bind(TOKENS.cardCreateUsecase).toInstance(CardCreateUsecaseImpl).inSingletonScope();
+        injected(CardCreateUsecaseImpl, TOKENS.cardCreatePort.optional);
+
     }
 
     public get<T extends TokenValue>(token: T): TokenType<T> {
