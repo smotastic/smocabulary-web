@@ -2,7 +2,7 @@ import { CourseCreateModel } from "../../../course-create/data/course-create.mod
 
 export interface CourseHelper {
     db: CourseCreateModel[],
-    add: (model: CourseCreateModel) => void,
+    add: (model: CourseCreateModel) => CourseCreateModel,
 }
 
 export default class CourseMockHelper implements CourseHelper {
@@ -16,8 +16,10 @@ export default class CourseMockHelper implements CourseHelper {
         return this._db;
     }
 
-    public add(model: CourseCreateModel) {
-        this._db.push(model);
+    public add(model: CourseCreateModel): CourseCreateModel {
+        const newModel = { ...model, id: `${this._db.length + 1}` };
+        this._db.push({ ...model, id: `${this._db.length + 1}` });
+        return newModel;
     }
 }
 
