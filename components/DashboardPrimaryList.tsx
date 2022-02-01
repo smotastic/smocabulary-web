@@ -19,7 +19,7 @@ export default function DashboardPrimaryList() {
             <ImageListItem>
                 <img
                     style={{ height: '70px', width: '239px', objectFit: 'cover' }}
-                    src={`/houseplant.jpeg`}
+                    src={`/courses.jpeg`}
                     loading="lazy"
                 />
                 <ImageListItemBar
