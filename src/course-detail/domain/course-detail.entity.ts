@@ -1,5 +1,5 @@
 export interface CourseDetailEntity {
-    id: string,
+    id?: string,
     name: string,
     description?: string,
     cards: CourseDetailCard[]
