@@ -3,8 +3,13 @@ import { CourseListModel } from "../course-list.model";
 import { CourseListDatasource } from "./course-list.datasource";
 
 export default class CourseListMockDs implements CourseListDatasource {
-    async list(): Promise<CourseListModel[]> {
-        return [...mockHelper.db];
+    list(): Promise<CourseListModel[]> {
+        const data = [...mockHelper.db]
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(data)
+            }, 1000)
+        });
     }
 
 }

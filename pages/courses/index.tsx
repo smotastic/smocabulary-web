@@ -8,7 +8,7 @@ type CoursesListProps = {
 }
 
 export default function CoursesList({ courses }: CoursesListProps) {
-    return <CourseListContainer courses={courses} />
+    return <CourseListContainer />
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
