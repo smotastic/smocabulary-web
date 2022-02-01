@@ -29,6 +29,12 @@ import CardCreateUsecaseImpl, { CardCreateUsecase } from "./card-create/domain/c
 import CardCreateFirebaseDatasource from "./card-create/data/datasources/card-create-firebase.datasource";
 import CardCreateAdapter from "./card-create/data/card-create.adapter";
 import CardCreateMockDatasource from "./card-create/data/datasources/card-create-mock.datasource";
+import { LearnInitDatasource } from "./learn/data/datasources/learn-init.datasource";
+import LearnInitUsecaseImpl, { LearnInitUsecase } from "./learn/domain/learn-init.usecase";
+import { LearnInitPort } from "./learn/domain/learn-init.port";
+import LearnInitAdapter from "./learn/data/learn-init.adapter";
+import LearnInitFirebaseDatasource from "./learn/data/datasources/learn-init-firebase.datasource";
+import LearnInitMockDatasource from "./learn/data/datasources/learn-init-mock.datasource";
 
 export const TOKENS = {
     authDs: token<AuthDatasource>('authDatasource'),
@@ -50,6 +56,10 @@ export const TOKENS = {
     cardCreateDs: token<CardCreateDatasource>('cardCreateDs'),
     cardCreatePort: token<CardCreatePort>('cardCreatePort'),
     cardCreateUsecase: token<CardCreateUsecase>('cardCreateUsecase'),
+
+    learnInitDs: token<LearnInitDatasource>('learnInitDs'),
+    learnInitPort: token<LearnInitPort>('learnInitPort'),
+    learnInitUsecase: token<LearnInitUsecase>('learnInitUsecase'),
 };
 
 export const TAGS = {
@@ -65,6 +75,7 @@ export class ServiceLocator {
             tagged(CourseListAdapter, TAGS.dev);
             tagged(CourseDetailAdapter, TAGS.dev);
             tagged(CardCreateAdapter, TAGS.dev);
+            tagged(LearnInitAdapter, TAGS.dev);
         }
         this._container = new Container();
 
@@ -119,6 +130,16 @@ export class ServiceLocator {
 
         this._container.bind(TOKENS.cardCreateUsecase).toInstance(CardCreateUsecaseImpl).inSingletonScope();
         injected(CardCreateUsecaseImpl, TOKENS.cardCreatePort.optional);
+
+        // ####### LEARN
+        this._container.bind(TOKENS.learnInitDs).toInstance(LearnInitFirebaseDatasource).inSingletonScope();
+        this._container.when(TAGS.dev).bind(TOKENS.learnInitDs).toInstance(LearnInitMockDatasource).inSingletonScope();
+
+        this._container.bind(TOKENS.learnInitPort).toInstance(LearnInitAdapter).inSingletonScope();
+        injected(LearnInitAdapter, TOKENS.learnInitDs.optional);
+
+        this._container.bind(TOKENS.learnInitUsecase).toInstance(LearnInitUsecaseImpl).inSingletonScope();
+        injected(LearnInitUsecaseImpl, TOKENS.learnInitPort.optional);
 
     }
 

@@ -11,7 +11,7 @@ export default function CardCreateBridge({ id }: CardCreateBridgeProps) {
     const [open, setOpen] = useState(false);
 
     return <>
-        <IconButton aria-label="delete" size="large" onClick={() => setOpen(true)}>
+        <IconButton aria-label="add" size="large" onClick={() => setOpen(true)}>
             <AddIcon />
         </IconButton>
         <CardCreateDialog open={open} setOpen={setOpen} id={id} />

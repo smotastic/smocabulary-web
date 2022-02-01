@@ -22,7 +22,8 @@ export default function Layout({ children }: LayoutProps) {
             createTheme({
                 palette: {
                     mode,
-                    primary: blueGrey
+                    primary: blueGrey,
+                    success: green,
                 },
             }),
         [mode],
